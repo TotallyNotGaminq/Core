@@ -1,0 +1,14 @@
+name: Core
+version: '${project.version}'
+main: net.unhappy.core.Core
+api-version: 1.19
+authors: [ Unhappy ]
+description: This is the core plugin for a server IDK what server yet but you know! :) (Currently on InDevStage.minehut.gg
+website: InDevStage.minehut.gg
+commands:
+  test:
+    usage: /<command>
+  gui:
+    usage: /<command>
+  discord:
+    usage: /<command>
