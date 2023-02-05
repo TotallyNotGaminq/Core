@@ -16,7 +16,7 @@ public class Board {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
         Objective obj = board.registerNewObjective("Scoreboard", "dummy",
-                ColorChat.chat("&bInDevStage.minehut.gg"));
+                ColorChat.chat("&#00bffbI&#0dc2fbn&#19c5fbD&#26c8fbe&#33cbfbv&#3fcffcS&#4cd2fct&#59d5fca&#65d8fcg&#72dbfce&#7fdefc.&#8be1fcm&#98e4fci&#a4e7fcn&#b1eafce&#beeefdh&#caf1fdu&#d7f4fdt&#e4f7fd.&#f0fafdg&#fdfdfdg"));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ColorChat.chat("&9Online: &4" + Bukkit.getOnlinePlayers().size()
         + "&c/&4" + Bukkit.getMaxPlayers()));

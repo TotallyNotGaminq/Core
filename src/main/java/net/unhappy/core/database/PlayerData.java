@@ -34,7 +34,7 @@ public class PlayerData {
     public void load(UUID uuid) {
         Document document = plugin.getServerCollection().find(Filters.eq("uuid", getUUID().toString())).first();
         if(document !=null) {
-            this.blocksMined.setAmount(document.getInteger("blocksMined"));
+            this.blocksMined.setAmount(document.getInteger("money"));
 
         }
     }
@@ -44,7 +44,7 @@ public class PlayerData {
         document.put("name", getPlayerName().toLowerCase());
         document.put("realName", getPlayerName());
         document.put("uuid", getUUID().toString());
-        document.put("blocksMined", this.blocksMined.getAmount());
+        document.put("money", this.blocksMined.getAmount());
         document.put("Last Login", this.lastLogin.getAmount()); //https://currentmillis.com/
         plugin.getServerCollection().replaceOne(Filters.eq("uuid", getUUID().toString()), document, new UpdateOptions().upsert(true));
     }
