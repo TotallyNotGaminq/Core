@@ -12,3 +12,5 @@ commands:
     usage: /<command>
   discord:
     usage: /<command>
+  updatescoreboard:
+    usage: /<command>

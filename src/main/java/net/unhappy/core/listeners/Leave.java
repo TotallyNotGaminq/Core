@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 @Getter
 public class Leave implements Listener {
-    private static Core plugin = Core.getInstance();
+    private static final Core plugin = Core.getInstance();
 
     public Leave(Core plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);

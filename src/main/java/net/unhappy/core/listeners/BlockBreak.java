@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class BlockBreak implements Listener {
 
-    private static Core plugin = Core.getInstance();
+    private final Core plugin = Core.getInstance();
 
     public BlockBreak(Core plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -27,7 +27,8 @@ public class BlockBreak implements Listener {
             profile = plugin.getProfileManager().getProfile(player.getUniqueId());
             profile.getData().load(player.getUniqueId());
         }
-        profile.getData().getBlocksMined().increaseAmount(1);
+        profile.getData().getMoney().increaseAmount(1);
+        profile.getData().getShard().increaseAmount(1);
     }
 
 

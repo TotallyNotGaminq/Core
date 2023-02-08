@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class InventoryClickListener implements Listener {
 
-    private Core plugin = Core.getInstance();
+    private final Core plugin = Core.getInstance();
 
     public InventoryClickListener(Core plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);

@@ -6,12 +6,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 import net.unhappy.core.commands.Discord;
 import net.unhappy.core.commands.GUI;
+import net.unhappy.core.commands.UpdateScoreboard;
 import net.unhappy.core.database.Profile;
 import net.unhappy.core.database.ProfileManager;
-import net.unhappy.core.listeners.BlockBreak;
-import net.unhappy.core.listeners.InventoryClickListener;
-import net.unhappy.core.listeners.Join;
-import net.unhappy.core.listeners.Leave;
+import net.unhappy.core.listeners.*;
 import net.unhappy.core.scoreboard.Board;
 import net.unhappy.core.ui.TestUI;
 import net.unhappy.core.utils.ColorChat;
@@ -37,6 +35,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 import java.util.function.Consumer;
@@ -73,8 +72,11 @@ public final class Core extends JavaPlugin implements Listener {
         new Leave(this);
         new BlockBreak(this);
         new InventoryClickListener(this);
+        new CreatureSpawn(this);
         new GUI(this);
         new Discord(this);
+        new UpdateScoreboard(this);
+        new EntityDeath(this);
         TestUI.initialize();
         Bukkit.broadcastMessage(ColorChat.chat("&a&lCore has been updated."));
 
@@ -95,7 +97,7 @@ public final class Core extends JavaPlugin implements Listener {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, @NotNull String[] args) {
         String commandName = command.getName().toLowerCase();
         if(commandName.equals("test")) {
             Player player = (Player) sender;

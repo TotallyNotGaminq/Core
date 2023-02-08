@@ -14,13 +14,14 @@ import java.util.UUID;
 @Getter
 public class PlayerData {
 
-    private Core plugin = Core.getInstance();
+    private final Core plugin = Core.getInstance();
 
-    private java.util.UUID UUID;
-    private String playerName;
-    private LoginData lastLogin = new LoginData();
+    private final java.util.UUID UUID;
+    private final String playerName;
+    private final LoginData lastLogin = new LoginData();
+    private final Stat shard = new Stat();
 
-    private Stat blocksMined = new Stat();
+    private final Stat money = new Stat();
 
     public PlayerData(UUID uuid, String name) {
         this.UUID = uuid;
@@ -28,14 +29,14 @@ public class PlayerData {
     }
 
     public void resetPlayer() {
-        this.blocksMined.setAmount(0);
+        this.money.setAmount(0);
     }
 
     public void load(UUID uuid) {
         Document document = plugin.getServerCollection().find(Filters.eq("uuid", getUUID().toString())).first();
         if(document !=null) {
-            this.blocksMined.setAmount(document.getInteger("money"));
-
+            this.money.setAmount(document.getInteger("money"));
+            this.shard.setAmount(document.getInteger("shard"));
         }
     }
 
@@ -44,7 +45,8 @@ public class PlayerData {
         document.put("name", getPlayerName().toLowerCase());
         document.put("realName", getPlayerName());
         document.put("uuid", getUUID().toString());
-        document.put("money", this.blocksMined.getAmount());
+        document.put("money", this.money.getAmount());
+        document.put("shard", this.shard.getAmount());
         document.put("Last Login", this.lastLogin.getAmount()); //https://currentmillis.com/
         plugin.getServerCollection().replaceOne(Filters.eq("uuid", getUUID().toString()), document, new UpdateOptions().upsert(true));
     }

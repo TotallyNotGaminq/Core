@@ -17,8 +17,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Join implements Listener {
 
-    private static Core plugin = Core.getInstance();
-    private Board scoreboard = new Board();
+    private static final Core plugin = Core.getInstance();
+    private final Board scoreboard = new Board();
 
     public  Join(Core plugin) {
         Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -32,6 +32,10 @@ public class Join implements Listener {
         profile.getData().load(player.getUniqueId());
         profile.getData().getLastLogin().setAmount(player.getLastPlayed());
         Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            if (!player.hasPlayedBefore()) {
+                Bukkit.getConsoleSender().sendMessage("warp spawn " + player.getName());
+                Bukkit.getConsoleSender().sendMessage("mmocore admin class-points set " + player.getName() + " 1");
+            }
             Bukkit.getScheduler().runTask(plugin, () -> Bukkit.broadcastMessage(ColorChat.chat("&bWelcome to 【In Dev Stage】 " + player.getName())));
         }, 1);
         scoreboard.setScoreBoard(player);
@@ -39,4 +43,6 @@ public class Join implements Listener {
             scoreboard.setScoreBoard(player);
         }, 20, 60);
     }
+
+
 }

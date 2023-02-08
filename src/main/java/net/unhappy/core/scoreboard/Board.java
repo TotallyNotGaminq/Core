@@ -1,6 +1,7 @@
 package net.unhappy.core.scoreboard;
 
 import net.unhappy.core.Core;
+import net.unhappy.core.database.Profile;
 import net.unhappy.core.utils.ColorChat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -10,21 +11,28 @@ import org.bukkit.scoreboard.*;
 import static org.bukkit.Bukkit.getServer;
 
 public class Board {
-    private Core plugin = Core.getInstance();
+    private final Core plugin = Core.getInstance();
 
     public void setScoreBoard(Player player) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         Scoreboard board = manager.getNewScoreboard();
         Objective obj = board.registerNewObjective("Scoreboard", "dummy",
-                ColorChat.chat("&#00bffbI&#0dc2fbn&#19c5fbD&#26c8fbe&#33cbfbv&#3fcffcS&#4cd2fct&#59d5fca&#65d8fcg&#72dbfce&#7fdefc.&#8be1fcm&#98e4fci&#a4e7fcn&#b1eafce&#beeefdh&#caf1fdu&#d7f4fdt&#e4f7fd.&#f0fafdg&#fdfdfdg"));
+                ColorChat.chat("&bInDevStage.minehut.gg"));
         obj.setDisplaySlot(DisplaySlot.SIDEBAR);
         Score score = obj.getScore(ColorChat.chat("&9Online: &4" + Bukkit.getOnlinePlayers().size()
         + "&c/&4" + Bukkit.getMaxPlayers()));
-        score.setScore(2);
-        Score score2 = obj.getScore(ColorChat.chat("&a$" + plugin.getProfileManager().getProfile(player.getUniqueId()).getData().getBlocksMined().getAmount()));
-        score2.setScore(1);
-        Score score3 = obj.getScore(ColorChat.chat("&d/Discord"));
-        score3.setScore(0);
+        score.setScore(3);
+        if (plugin.getProfileManager().getProfile(player.getUniqueId()) == null) {
+            plugin.getProfileManager().handleProfileCreation(player.getUniqueId(), player.getName());
+            Profile profile = plugin.getProfileManager().getProfile(player.getUniqueId());
+            profile.getData().load(player.getUniqueId());
+        }
+        Score score2 = obj.getScore(ColorChat.chat("&a$" + plugin.getProfileManager().getProfile(player.getUniqueId()).getData().getMoney().getAmount()));
+        score2.setScore(2);
+        Score score3 = obj.getScore(ColorChat.chat("&a❖" + plugin.getProfileManager().getProfile(player.getUniqueId()).getData().getShard().getAmount()));
+        score3.setScore(2);
+        Score score4 = obj.getScore(ColorChat.chat("&d/Discord"));
+        score4.setScore(0);
         player.setScoreboard(board);
     }
 }

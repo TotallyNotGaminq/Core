@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class TestUI {
 
     public static Inventory inv;
@@ -22,7 +24,7 @@ public class TestUI {
         return toReturn;
     }
     public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv) {
-        if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase(ColorChat.chat("&cTest Item"))) {
+        if (Objects.requireNonNull(clicked.getItemMeta()).getDisplayName().equalsIgnoreCase(ColorChat.chat("&cTest Item"))) {
             Bukkit.broadcastMessage("a");
         }
     }

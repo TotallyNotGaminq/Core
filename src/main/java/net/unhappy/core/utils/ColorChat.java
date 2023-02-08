@@ -8,17 +8,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ColorChat {
     public static String chat (String s) {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public static ItemStack createItem(Inventory inv, String material, int amount, int invSlot, String displayName, String... loreString) {
+    public static void createItem(Inventory inv, String material, int amount, int invSlot, String displayName, String... loreString) {
         ItemStack item;
         List<String> lore = new ArrayList();
-        item = new ItemStack(Material.matchMaterial(material), amount);
+        item = new ItemStack(Objects.requireNonNull(Material.matchMaterial(material)), amount);
         ItemMeta meta = item.getItemMeta();
+        assert meta != null;
         meta.setDisplayName(ColorChat.chat(displayName));
         for (String s : loreString) {
             lore.add(ColorChat.chat(s));
@@ -26,7 +28,6 @@ public class ColorChat {
         meta.setLore(lore);
         item.setItemMeta(meta);
         inv.setItem(invSlot - 1, item);
-        return item;
     }
 
     public static ItemStack createItemByte(Inventory inv, String material, int amount, int invSlot, String displayName, String... loreString) {
